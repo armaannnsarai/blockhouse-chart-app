@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
+//metadata
 export const metadata: Metadata = {
   title: "Charts for Blockhouse",
   description: "By Armaandeep Sarai",

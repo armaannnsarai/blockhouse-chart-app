@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { useEffect, useState } from "react";
 
+//registering chart.js components
 ChartJS.register(
   LineElement,
   PointElement,
@@ -23,6 +24,7 @@ ChartJS.register(
   Legend
 );
 
+//chart config
 const options = {
   responsive: true,
   plugins: {
@@ -37,6 +39,7 @@ const options = {
       },
     },
   },
+  //x and y axis styling
   scales: {
     x: {
       grid: {
@@ -57,23 +60,28 @@ const options = {
   },
 };
 
+//graph component
 export function LineGraph() {
+  //wait until component is mounted
   const [data, setData] = useState(undefined);
   useEffect(() => {
     (async () => {
       try {
+        //fetch data from api
         const res = await fetch("http://localhost:8000/api/line-chart-data");
         const json = await res.json();
         setData(json);
       } catch (e) {
+        //handle error
         alert("We couldn't fetch your data! Make sure the backend is running.");
       }
     })();
   }, []);
-
+  //in case data didnt load, display loading
   if (!data) {
     return <h1>Loading...</h1>;
   } else {
+    //render chart
     return (
       <div style={{ width: "100%", minHeight: "300px", maxHeight: "500px" }}>
         <Line

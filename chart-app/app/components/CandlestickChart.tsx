@@ -20,6 +20,7 @@ import { Chart } from "react-chartjs-2";
 import "chartjs-chart-financial";
 import { useState, useEffect } from "react";
 
+//registering chart.js components
 ChartJS.register(
   Title,
   Tooltip,
@@ -33,11 +34,14 @@ ChartJS.register(
   OhlcElement
 );
 
+//graph component
 export function CandlestickChart() {
+  //wait until component is mounted
   const [data, setData] = useState(undefined);
   useEffect(() => {
     (async () => {
       try {
+        //fetch data from api
         const res = await fetch(
           "http://localhost:8000/api/candlestick-chart-data"
         );
@@ -48,14 +52,16 @@ export function CandlestickChart() {
         }
         setData({ x: json["x"], y: y } as any);
       } catch (e) {
+        //handle error
         alert("We couldn't fetch your data! Make sure the backend is running.");
       }
     })();
   }, []);
-
+  //in case data didnt load, display loading
   if (!data) {
     return <h1>Loading...</h1>;
   } else {
+    //render chart
     return (
       <div style={{ width: "100%", minHeight: "300px", maxHeight: "500px" }}>
         <Chart
@@ -74,6 +80,7 @@ export function CandlestickChart() {
               },
             ],
           }}
+          //chart config
           options={{
             responsive: true,
             plugins: {
@@ -86,6 +93,7 @@ export function CandlestickChart() {
                 },
               },
             },
+            //x and y axis styling
             scales: {
               x: {
                 type: "time",

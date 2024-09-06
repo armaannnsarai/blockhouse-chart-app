@@ -11,6 +11,7 @@ import { BarGraph } from "./components/BarChart";
 import { PieGraph } from "./components/PieChart";
 import { CandlestickChart } from "./components/CandlestickChart";
 
+//styled mui paper component for chart containers
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: "#fff",
   ...theme.typography.body2,
@@ -21,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: "#1A2027",
   }),
 }));
-
+//home component
 const Home = () => {
   return (
     <div>
